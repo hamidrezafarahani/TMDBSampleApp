@@ -3,7 +3,6 @@ package com.example.tmdbsampleapp.network.apierror
 import android.content.Context
 import android.widget.Toast
 import com.example.tmdbsampleapp.R
-import com.example.tmdbsampleapp.network.apierror.ApiError
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.net.UnknownHostException
 import javax.inject.Inject

@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import com.example.tmdbsampleapp.data.remote.dto.Movie
-import com.example.tmdbsampleapp.data.repository.Repository
 import com.example.tmdbsampleapp.domain.GetMoviesUseCase
 import com.example.tmdbsampleapp.network.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,6 +16,7 @@ class MoviesViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val currentPage = MutableLiveData(1)
+    val cachedMovies = mutableListOf<Movie>()
 
     val movies: LiveData<Resource<List<Movie>>> = currentPage.switchMap {
         getMovies(it)

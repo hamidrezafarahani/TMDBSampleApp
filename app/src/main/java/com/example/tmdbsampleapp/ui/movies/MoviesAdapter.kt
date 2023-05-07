@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tmdbsampleapp.R
 import com.example.tmdbsampleapp.data.remote.dto.Movie
 import com.example.tmdbsampleapp.databinding.MovieItemBinding
-import javax.inject.Inject
 
 class MoviesAdapter(private val listener: (Movie) -> Unit) :
     ListAdapter<Movie, MoviesAdapter.ViewHolder>(DIFF_CALLBACK) {
@@ -42,7 +41,7 @@ class MoviesAdapter(private val listener: (Movie) -> Unit) :
                 binding.viewModel?.onClick(it)
             }
 
-            itemView.setOnClickListener(binding.viewModel!!::onClick)
+//            itemView.setOnClickListener(binding.viewModel!!::onClick)
         }
 
         fun bind(movie: Movie) {

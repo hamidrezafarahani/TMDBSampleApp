@@ -4,18 +4,24 @@
 
     <data>
 
+        <import type="com.example.tmdbsampleapp.ui.movies.MoviesViewModel" />
+
+        <variable
+            name="vm"
+            type="MoviesViewModel" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.movies.MoviesFragment">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_list_movies"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:scrollbars="vertical" />
 
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
