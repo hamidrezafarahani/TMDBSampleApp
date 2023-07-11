@@ -1,10 +1,9 @@
 package com.example.tmdbsampleapp.di
 
 import android.app.Application
+import com.example.tmdbsampleapp.BuildConfig
 import com.example.tmdbsampleapp.data.remote.TMDBService
 import com.example.tmdbsampleapp.shared.Constants
-import com.example.tmdbsampleapp.shared.TMDB_TOKEN
-import com.facebook.shimmer.BuildConfig
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -50,7 +49,7 @@ object NetworkModule {
                 addQueryParameter("language", "en-US")
             }.build()
             val request = it.request().newBuilder()
-                .addHeader("Authorization", "Bearer ".plus(TMDB_TOKEN))
+                .addHeader("Authorization", "Bearer ".plus(BuildConfig.TOKEN))
                 .url(url)
                 .build()
             it.proceed(request)

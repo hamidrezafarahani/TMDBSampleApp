@@ -10,6 +10,8 @@ android {
     namespace 'com.example.tmdbsampleapp'
     compileSdk 33
 
+    def properties = getProperties("${rootDir}/local.properties")
+
     defaultConfig {
         applicationId "com.example.tmdbsampleapp"
         minSdk 24
@@ -17,11 +19,14 @@ android {
         versionCode 1
         versionName "1.0"
 
+        buildConfigField("String", "API_KEY", "\"${properties.getProperty("tmdb.api_key")}\"")
+        buildConfigField("String", "TOKEN", "\"${properties.getProperty("tmdb.token")}\"")
+
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments += [
-                        "room.schemaLocation":"$projectDir/schemas".toString(),
-                        "room.incremental":"true"
+                        "room.schemaLocation": "$projectDir/schemas".toString(),
+                        "room.incremental"   : "true"
                 ]
             }
         }
@@ -54,7 +59,19 @@ android {
     buildFeatures {
         viewBinding true
         dataBinding true
+        buildConfig true
     }
+}
+
+static Properties getProperties(String file) {
+    def properties = new Properties()
+    def propertiesFile = new File(file)
+    if (propertiesFile instanceof File) {
+        properties.load(new FileInputStream(propertiesFile))
+    } else {
+        throw new Exception("file not found or not instance of properties faile.")
+    }
+    return properties
 }
 
 dependencies {
