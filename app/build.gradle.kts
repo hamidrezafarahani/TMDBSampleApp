@@ -11,15 +11,15 @@ plugins {
 
 android {
     namespace = "com.example.tmdbsampleapp"
-    compileSdk = 33
+    compileSdk = Versions.COMPILE_SDK
 
     val properties = getProperties("${rootDir}/local.properties")
 
     defaultConfig {
         applicationId = "com.example.tmdbsampleapp"
-        minSdk = 24
-        targetSdk = 33
-        versionCode = 1
+        minSdk = Versions.MIN_SDK
+        targetSdk = Versions.TARGET_SDK
+        versionCode = Versions.VERSION_CODE
         versionName = "1.0"
 
         buildConfigField("String", "API_KEY", "\"${properties.getProperty("tmdb.api_key")}\"")
@@ -80,62 +80,48 @@ fun getProperties(file: String) = Properties().apply {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.8.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.5.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(Libs.CORE_KTX)
+    implementation(Libs.APPCOMPAT)
+    implementation(Libs.GOOGLE_MATERIAL)
+    implementation(Libs.CONSTRAINT_LAYOUT)
+    testImplementation(Libs.JUNIT)
+    androidTestImplementation(Libs.EXT_JUNIT)
+    androidTestImplementation(Libs.ESPRESSO_CORE)
 
-    val coroutinesVersion = "1.6.4"
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
+    implementation(Libs.COROUTINES)
 
-    val fragmentKtxVersion = "1.5.7"
-    implementation("androidx.fragment:fragment-ktx:$fragmentKtxVersion")
+    implementation(Libs.FRAGMENT_KTX)
 
-    val lifecycleVersion = "2.6.1"
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
-    kapt("androidx.lifecycle:lifecycle-compiler:$lifecycleVersion")
+    implementation(Libs.LIFE_CYCLE_RUN_TIME_KTX)
+    implementation(Libs.LIFE_CYCLE_LIVE_DATA_KTX)
+    implementation(Libs.LIFE_CYCLE_VIEW_MODEL_KTX)
+    kapt(Libs.LIFE_CYCLE_COMPILER)
 
-    val navVersion = "2.5.3"
-    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
-    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
+    implementation(Libs.NAVIGATION_FRAGMENT_KTX)
+    implementation(Libs.NAVIGATION_UI_KTX)
 
-    val pagingVersion = "3.1.1"
-    implementation("androidx.paging:paging-runtime:$pagingVersion")
+    implementation(Libs.PAGING_RUN_TIME)
 
-    val hiltVersion = "2.46"
-    implementation("com.google.dagger:hilt-android:$hiltVersion")
-    kapt("com.google.dagger:hilt-compiler:$hiltVersion")
+    implementation(Libs.HILT_ANDROID)
+    kapt(Libs.HILT_COMPILER)
 
-    val roomVersion = "2.4.3"
-    implementation("androidx.room:room-runtime:$roomVersion")
-    kapt("androidx.room:room-compiler:$roomVersion")
-    implementation("androidx.room:room-paging:$roomVersion")
+    implementation(Libs.ROOM_RUN_TIME)
+    kapt(Libs.ROOM_COMPILER)
+    implementation(Libs.ROOM_PAGING)
 
+    implementation(Libs.GSON)
 
-    val gsonVersion = "2.10.1"
-    implementation("com.google.code.gson:gson:$gsonVersion")
+    implementation(Libs.OK_HTTP)
+    implementation(Libs.OK_HTTP_LOGGING_INTERCEPTOR)
 
-    val okhttpVersion = "4.10.0"
-    implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
-    implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
+    implementation(Libs.RETROFIT)
+    implementation(Libs.RETROFIT_CONVERTER_GSON)
 
-    val retrofitVersion = "2.9.0"
-    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
-    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    implementation(Libs.GLIDE)
 
-    val glideVersion = "4.15.1"
-    implementation("com.github.bumptech.glide:glide:$glideVersion")
+    implementation(Libs.SHIMMER)
 
-    val shimmerVersion = "0.5.0"
-    implementation("com.facebook.shimmer:shimmer:$shimmerVersion")
-
-    val timberVersion = "5.0.1"
-    implementation("com.jakewharton.timber:timber:$timberVersion")
+    implementation(Libs.TIMBER)
 }
 
 kapt {
