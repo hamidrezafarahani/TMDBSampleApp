@@ -1,4 +1,4 @@
-package com.example.tmdbsampleapp.network
+package com.example.tmdbsampleapp.extensions
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver

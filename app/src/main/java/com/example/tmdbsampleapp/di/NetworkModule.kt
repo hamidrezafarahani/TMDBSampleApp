@@ -18,6 +18,7 @@ import retrofit2.CallAdapter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
+import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -33,11 +34,14 @@ object NetworkModule {
     @LoggingInterceptor
     @Provides
     fun provideLoggingInterceptor(): Interceptor {
-        return HttpLoggingInterceptor { message -> Timber.tag("http-logger").d(message) }.apply {
-            level = if (BuildConfig.DEBUG)
+        return HttpLoggingInterceptor {
+            Timber.tag("http-logger").d(it)
+        }.apply {
+            level = if (BuildConfig.DEBUG) {
                 HttpLoggingInterceptor.Level.BODY
-            else
+            } else {
                 HttpLoggingInterceptor.Level.NONE
+            }
         }
     }
 
@@ -49,7 +53,7 @@ object NetworkModule {
                 addQueryParameter("language", "en-US")
             }.build()
             val request = it.request().newBuilder()
-                .addHeader("Authorization", "Bearer ".plus(BuildConfig.TOKEN))
+                .addHeader("Authorization", "Bearer ${BuildConfig.TOKEN}")
                 .url(url)
                 .build()
             it.proceed(request)
@@ -58,7 +62,10 @@ object NetworkModule {
 
     @Provides
     fun provideOkHttpCache(app: Application): Cache {
-        return Cache(app.cacheDir, 50_000_000)
+        return Cache(
+            directory = File(app.cacheDir, "http_cache"),
+            maxSize = 50L * 1024 * 1024
+        )
     }
 
     @Singleton

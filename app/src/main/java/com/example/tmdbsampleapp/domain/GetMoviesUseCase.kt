@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class GetMoviesUseCase @Inject constructor(private val repository: Repository) {
 
-    operator fun invoke(page: Int):LiveData<Resource<List<Movie>>> {
+    operator fun invoke(page: Int): LiveData<Resource<List<Movie>>> {
         return repository.getMovies(page)
     }
 }

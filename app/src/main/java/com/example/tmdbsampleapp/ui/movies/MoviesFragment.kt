@@ -4,44 +4,41 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tmdbsampleapp.R
+import com.example.tmdbsampleapp.binding.dataBindings
 import com.example.tmdbsampleapp.databinding.FragmentMoviesBinding
+import com.example.tmdbsampleapp.extensions.autoCleared
+import com.example.tmdbsampleapp.extensions.with
 import com.example.tmdbsampleapp.network.apierror.GlobalApiErrorHandler
-import com.example.tmdbsampleapp.network.autoCleared
-import com.example.tmdbsampleapp.network.dataBindings
-import com.example.tmdbsampleapp.network.with
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
-    @Inject
-    lateinit var apiErrorHandler: GlobalApiErrorHandler
-
-    private val navController: NavController by lazy { findNavController() }
-    private val viewModel by viewModels<MoviesViewModel>()
-
     private val binding by dataBindings(FragmentMoviesBinding::bind)
-
+    private val viewModel by viewModels<MoviesViewModel>()
+    private val navController by lazy { findNavController() }
     private var adapter by autoCleared<MoviesAdapter>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+
+    @Inject
+    lateinit var apiErrorHandler: GlobalApiErrorHandler
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
+
         adapter = MoviesAdapter {
-//            requireActivity() log it.title
+            Snackbar.make(view, it.title, Snackbar.LENGTH_LONG).show()
         }
+
         binding bindAdapter adapter
+
         initObservers()
     }
 
@@ -68,7 +65,6 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
     private infix fun FragmentMoviesBinding.bindAdapter(adapter: MoviesAdapter) {
         rvListMovies.adapter = adapter
-        rvListMovies.layoutManager = LinearLayoutManager(rvListMovies.context)
         rvListMovies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {

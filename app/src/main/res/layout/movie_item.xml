@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.example.tmdbsampleapp.ui.movies.ItemMovieViewModel"/>
+
+        <import type="com.example.tmdbsampleapp.ui.movies.ItemMovieViewModel" />
 
         <variable
             name="viewModel"
@@ -13,22 +14,28 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="2dp">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <ImageView
                 android:id="@+id/iv_movie"
                 android:layout_width="match_parent"
                 android:layout_height="95dp"
                 app:imgFromUrl="@{viewModel.imageUrl}"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/tv_title_movie"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.movieTitle}"
-                app:layout_constraintTop_toBottomOf="@id/iv_movie"/>
+                app:layout_constraintTop_toBottomOf="@id/iv_movie" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
