@@ -1,8 +1,10 @@
 package com.example.tmdbsampleapp.network.apierror
 
 import android.content.Context
+import android.view.View
 import android.widget.Toast
 import com.example.tmdbsampleapp.R
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.net.UnknownHostException
 import javax.inject.Inject
@@ -13,6 +15,10 @@ class GlobalApiErrorHandler @Inject constructor(
 ) {
     fun handleError(error: ApiError) {
         Toast.makeText(context, getErrorDescription(error), Toast.LENGTH_SHORT).show()
+    }
+
+    fun handleError(view: View, error: ApiError) {
+        Snackbar.make(view, getErrorDescription(error), Snackbar.LENGTH_LONG).show()
     }
 
     private fun getErrorDescription(error: ApiError): String = when (error) {

@@ -22,6 +22,10 @@ class MoviesViewModel @Inject constructor(
         getMovies(it)
     }
 
+    fun loadFirstPage() {
+        currentPage.value = 1
+    }
+
     fun loadNextPage() {
         currentPage.value = currentPage.value!!.plus(1)
     }

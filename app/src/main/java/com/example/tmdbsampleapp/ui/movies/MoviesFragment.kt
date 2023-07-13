@@ -39,29 +39,37 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
         binding bindAdapter adapter
 
-        initObservers()
+        binding.initObservers()
     }
 
     private fun initViews() = with(binding) {
-        lifecycleOwner = viewLifecycleOwner
         vm = viewModel
     }
 
-    private fun initObservers() = with(viewModel) {
+    private fun FragmentMoviesBinding.initObservers() = with(viewModel) {
         movies.with(viewLifecycleOwner).callbacks {
             onLoading {
-
+                buttonRetry.visibility = View.GONE
             }
             onSuccess {
+                buttonRetry.visibility = View.GONE
                 cachedMovies.addAll(it)
                 adapter.submitList(cachedMovies.toList())
             }
             onFailed {
-                apiErrorHandler.handleError(it)
+                buttonRetry.visibility = View.VISIBLE
+                apiErrorHandler.handleError(root, it)
+            }
+        }
+
+        buttonRetry.setOnClickListener {
+            if (cachedMovies.isEmpty()) {
+                loadFirstPage()
+            } else {
+                adapter.submitList(cachedMovies)
             }
         }
     }
-
 
     private infix fun FragmentMoviesBinding.bindAdapter(adapter: MoviesAdapter) {
         rvListMovies.adapter = adapter
