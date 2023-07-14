@@ -17,4 +17,6 @@
     <string name="err_ssl_handshake">مشکلی در ssl بوجود آمده است.</string>
     <string name="err_no_internet">عدم دسترسی به اینترنت</string>
     <string name="retry">retry</string>
+    <string name="movies">Movies</string>
+    <string name="search">Search</string>
 </resources>
