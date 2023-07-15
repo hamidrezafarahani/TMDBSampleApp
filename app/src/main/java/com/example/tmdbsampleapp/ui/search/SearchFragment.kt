@@ -94,14 +94,32 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun FragmentSearchBinding.search(query: String) = with(viewModel) {
         search(query).with(viewLifecycleOwner).callbacks {
             onLoading {
-
+                loading = true
+                error = false
             }
             onSuccess {
+                loading = false
+                error = false
                 cachedMovies.addAll(it)
                 adapter.submitList(cachedMovies.toList())
             }
             onFailed {
-                apiErrorHandler.handleError(root, it)
+                loading = false
+                error = true
+                apiErrorHandler.handleError(it) { _, message ->
+                    Snackbar
+                        .make(root, message, Snackbar.LENGTH_LONG)
+                        .setAction("retry") {
+                            if (cachedMovies.isEmpty()) {
+                                loadFirstPage()
+                            } else {
+                                loading = false
+                                error = false
+                                adapter.submitList(cachedMovies.toList())
+                            }
+                        }
+                        .show()
+                }
             }
         }
     }

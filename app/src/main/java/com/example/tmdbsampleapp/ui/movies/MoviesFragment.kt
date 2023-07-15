@@ -49,25 +49,41 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
     private fun FragmentMoviesBinding.initObservers() = with(viewModel) {
         movies.with(viewLifecycleOwner).callbacks {
             onLoading {
-                buttonRetry.visibility = View.GONE
+                loading = true
+                error = false
             }
             onSuccess {
-                buttonRetry.visibility = View.GONE
+                loading = false
+                error = false
                 cachedMovies.addAll(it)
                 adapter.submitList(cachedMovies.toList())
             }
             onFailed {
-                buttonRetry.visibility = View.VISIBLE
-                apiErrorHandler.handleError(root, it)
+                loading = false
+                error = true
+                apiErrorHandler.handleError(it) { _, message ->
+                    Snackbar
+                        .make(root, message, Snackbar.LENGTH_LONG)
+                        .setAction("retry") {
+                            handleInResponseError()
+                        }
+                        .show()
+                }
             }
         }
 
         buttonRetry.setOnClickListener {
-            if (cachedMovies.isEmpty()) {
-                loadFirstPage()
-            } else {
-                adapter.submitList(cachedMovies)
-            }
+            handleInResponseError()
+        }
+    }
+
+    private fun FragmentMoviesBinding.handleInResponseError() = with(viewModel) {
+        if (cachedMovies.isEmpty()) {
+            loadFirstPage()
+        } else {
+            loading = false
+            error = false
+            adapter.submitList(cachedMovies)
         }
     }
 
@@ -81,20 +97,6 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
                     viewModel.loadNextPage()
                 }
             }
-
-            // OR using this callback
-            /**
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            super.onScrolled(recyclerView, dx, dy)
-            val lm = recyclerView.layoutManager as LinearLayoutManager
-            val lastVisiblePosition = lm.findLastVisibleItemPosition()
-            if (lastVisiblePosition == lm.itemCount - 3) {
-            viewModel.loadNextPage()
-            }
-
-            }*/
         })
     }
 }
-
-

@@ -1,5 +1,6 @@
 package com.example.tmdbsampleapp.binding
 
+import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -13,4 +14,9 @@ fun ImageView.loadImageUrl(url: String?) = url?.let {
         .placeholder(R.drawable.ic_launcher_foreground)
         .transition(DrawableTransitionOptions.withCrossFade())
         .into(this)
+}
+
+@BindingAdapter("isViewVisible")
+fun View.isVisible(isVisible: Boolean) {
+    visibility = if (isVisible) View.VISIBLE else View.GONE
 }
