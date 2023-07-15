@@ -7,4 +7,6 @@ import com.example.tmdbsampleapp.network.Resource
 interface RemoteDataSource {
 
     fun getMovies(page: Int): LiveData<Resource<List<Movie>>>
+
+    fun searchMovies(query: String, page: Int): LiveData<Resource<List<Movie>>>
 }

@@ -11,4 +11,8 @@ class GetMoviesUseCase @Inject constructor(private val repository: Repository) {
     operator fun invoke(page: Int): LiveData<Resource<List<Movie>>> {
         return repository.getMovies(page)
     }
+
+    operator fun invoke(query: String, page: Int): LiveData<Resource<List<Movie>>> {
+        return repository.searchMovies(query, page)
+    }
 }

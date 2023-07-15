@@ -10,9 +10,15 @@ import retrofit2.http.Query
 
 interface TMDBService {
 
-    @GET("popular")
+    @GET("movie/popular")
     fun getMovies(@Query("page") page: Int): LiveData<ApiListResponse<Movie>>
 
-    @GET("popular")
+    @GET("movie/popular")
     fun getPopularMovies(@Query("page") page: Int): LiveData<ApiResponse<TMDBResponse<Movie>>>
+
+    @GET("search/movie")
+    fun searchMovies(
+        @Query("query") query: String,
+        @Query("page") page: Int
+    ): LiveData<ApiListResponse<Movie>>
 }

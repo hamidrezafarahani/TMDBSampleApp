@@ -13,4 +13,8 @@ class RepositoryImpl @Inject constructor(
     override fun getMovies(page: Int): LiveData<Resource<List<Movie>>> {
         return remoteDataSource.getMovies(page)
     }
+
+    override fun searchMovies(query: String, page: Int): LiveData<Resource<List<Movie>>> {
+        return remoteDataSource.searchMovies(query, page)
+    }
 }
