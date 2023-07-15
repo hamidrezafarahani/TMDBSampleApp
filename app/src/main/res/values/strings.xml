@@ -19,4 +19,5 @@
     <string name="search">Search</string>
     <string name="movies_photos">movies photos</string>
     <string name="search_movies_photos">search movies photos</string>
+    <string name="clear">Clear</string>
 </resources>
