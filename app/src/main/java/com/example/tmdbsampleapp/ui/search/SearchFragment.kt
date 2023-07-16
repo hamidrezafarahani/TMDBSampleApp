@@ -8,6 +8,7 @@ import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.core.view.doOnNextLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -18,6 +19,7 @@ import com.example.tmdbsampleapp.databinding.FragmentSearchBinding
 import com.example.tmdbsampleapp.extensions.autoCleared
 import com.example.tmdbsampleapp.extensions.with
 import com.example.tmdbsampleapp.network.apierror.GlobalApiErrorHandler
+import com.example.tmdbsampleapp.util.setContentMaxWidth
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -47,6 +49,15 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 }
             }
         })
+
+        with(binding.swipeRefreshLayout) {
+            doOnNextLayout {
+                setContentMaxWidth(it)
+            }
+            setOnRefreshListener {
+                viewModel.loadFirstPage()
+            }
+        }
 
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
@@ -100,6 +111,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             onSuccess {
                 loading = false
                 error = false
+                swipeRefreshLayout.isRefreshing = false
                 cachedMovies.addAll(it)
                 adapter.submitList(cachedMovies.toList())
             }

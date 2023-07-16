@@ -3,6 +3,7 @@ package com.example.tmdbsampleapp.binding
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.tmdbsampleapp.R
@@ -19,4 +20,9 @@ fun ImageView.loadImageUrl(url: String?) = url?.let {
 @BindingAdapter("isViewVisible")
 fun View.isVisible(isVisible: Boolean) {
     visibility = if (isVisible) View.VISIBLE else View.GONE
+}
+
+@BindingAdapter("swipeRefreshColors")
+fun SwipeRefreshLayout.setSwipeRefreshColors(colorResIds: IntArray) {
+    setColorSchemeColors(*colorResIds)
 }

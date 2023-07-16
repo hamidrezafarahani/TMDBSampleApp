@@ -23,6 +23,7 @@ class MoviesViewModel @Inject constructor(
     }
 
     fun loadFirstPage() {
+        cachedMovies.clear()
         currentPage.value = 1
     }
 

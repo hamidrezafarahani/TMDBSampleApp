@@ -29,4 +29,5 @@ object Versions {
     const val GLIDE = "4.15.1"
     const val SHIMMER = "0.5.0"
     const val TIMBER = "5.0.1"
+    const val SWIPE_REFRESH_LAYOUT = "1.1.0"
 }

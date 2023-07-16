@@ -59,4 +59,7 @@ object Libs {
 
 
     const val TIMBER = "com.jakewharton.timber:timber:${Versions.TIMBER}"
+
+    const val SWIPE_REFRESH_LAYOUT =
+        "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.SWIPE_REFRESH_LAYOUT}"
 }

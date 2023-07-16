@@ -8,7 +8,7 @@
         <import type="com.example.tmdbsampleapp.ui.movies.MoviesViewModel" />
 
         <variable
-            name="vm"
+            name="moviesViewModel"
             type="MoviesViewModel" />
 
         <variable
@@ -37,14 +37,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_list_movies"
-            isViewVisible="@{!error}"
+        <com.example.tmdbsampleapp.widget.CustomSwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2" />
+            app:swipeRefreshColors="@{@intArray/swipe_refresh}">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_list_movies"
+                isViewVisible="@{!error}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2" />
+
+        </com.example.tmdbsampleapp.widget.CustomSwipeRefreshLayout>
 
         <ProgressBar
             android:id="@+id/progressBar"

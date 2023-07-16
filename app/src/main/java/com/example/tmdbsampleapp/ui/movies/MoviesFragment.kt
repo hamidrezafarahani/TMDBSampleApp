@@ -2,6 +2,7 @@ package com.example.tmdbsampleapp.ui.movies
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.doOnNextLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -12,6 +13,7 @@ import com.example.tmdbsampleapp.databinding.FragmentMoviesBinding
 import com.example.tmdbsampleapp.extensions.autoCleared
 import com.example.tmdbsampleapp.extensions.with
 import com.example.tmdbsampleapp.network.apierror.GlobalApiErrorHandler
+import com.example.tmdbsampleapp.util.setContentMaxWidth
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -43,7 +45,15 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
     }
 
     private fun initViews() = with(binding) {
-        vm = viewModel
+        moviesViewModel = viewModel
+        with(swipeRefreshLayout) {
+            doOnNextLayout {
+                setContentMaxWidth(it)
+            }
+            setOnRefreshListener {
+                viewModel.loadFirstPage()
+            }
+        }
     }
 
     private fun FragmentMoviesBinding.initObservers() = with(viewModel) {
@@ -55,6 +65,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
             onSuccess {
                 loading = false
                 error = false
+                swipeRefreshLayout.isRefreshing = false
                 cachedMovies.addAll(it)
                 adapter.submitList(cachedMovies.toList())
             }

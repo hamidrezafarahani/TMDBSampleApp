@@ -122,6 +122,8 @@ dependencies {
     implementation(Libs.SHIMMER)
 
     implementation(Libs.TIMBER)
+
+    implementation(Libs.SWIPE_REFRESH_LAYOUT)
 }
 
 kapt {

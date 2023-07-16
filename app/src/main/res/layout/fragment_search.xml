@@ -20,14 +20,22 @@
         android:layout_height="match_parent"
         tools:context=".ui.search.SearchFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_list_movies"
-            isViewVisible="@{!error}"
+        <com.example.tmdbsampleapp.widget.CustomSwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2" />
+            app:swipeRefreshColors="@{@intArray/swipe_refresh}">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_list_movies"
+                isViewVisible="@{!error}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2" />
+
+        </com.example.tmdbsampleapp.widget.CustomSwipeRefreshLayout>
 
         <ProgressBar
             android:id="@+id/progressBar"
