@@ -2,10 +2,10 @@ import java.util.Properties
 import java.io.FileInputStream
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("androidx.navigation.safeargs.kotlin")
-    id("com.google.dagger.hilt.android")
+    id(Plugins.ANDROID_APPLICATION)
+    id(Plugins.JETBRAINS_KOTILN_ANDROID)
+    id(Plugins.NAVIGATION_SAFE_ARGS)
+    id(Plugins.DAGGER_HILT_ANDROID)
     kotlin("kapt")
 }
 
@@ -39,25 +39,39 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
+
+        debug {
+            applicationIdSuffix = ".debug"
+            isDebuggable = true
+        }
+
+        create("develop") {
+            initWith(getByName("debug"))
+            applicationIdSuffix = ".develop"
+        }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
     kotlin {
         jvmToolchain {
             languageVersion.set(JavaLanguageVersion.of(17))
         }
     }
+
     kotlinOptions {
         jvmTarget = "17"
     }
+
     buildFeatures {
         viewBinding = true
         dataBinding = true
