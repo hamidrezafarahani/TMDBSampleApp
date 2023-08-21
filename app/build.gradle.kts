@@ -84,7 +84,7 @@ fun getProperties(file: String) = Properties().apply {
     if (propertiesFile.isFile) {
         load(FileInputStream(propertiesFile))
     } else {
-        throw Exception("file not found or not instance of properties file.")
+        error("file not found or not instance of properties file.")
     }
 }
 
